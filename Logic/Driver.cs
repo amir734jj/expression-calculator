@@ -1,25 +1,39 @@
 using System;
+using System.Linq;
 using System.Linq.Expressions;
 
 namespace Logic
 {
     public class Driver
     {
-        public Driver(string code)
-        {
-            var tokens = new Parser().Parse(code);
-            var semanticPayload = new Semantic().Visit(tokens);
-            
-            foreach (var errorMessage in semanticPayload.Error.Messages)
-            {
-                Console.WriteLine(errorMessage);
-            }
+        private readonly Semantic _semantic;
+        
+        private readonly Parser _parser;
+        
+        private readonly CodeGen _codeGen;
 
-            var codeGen = new CodeGen().Visit(tokens);
+        public Driver()
+        {
+            _parser = new Parser();
+            _semantic = new Semantic();
+            _codeGen = new CodeGen();
+        }
+        
+        public string Run(string code)
+        {
+            var tokens = _parser.Parse(code);
+            var semanticPayload = _semantic.Visit(tokens);
+            
+            if (semanticPayload.Error.Messages.Any())
+            {
+                throw new Exception(string.Join(Environment.NewLine, semanticPayload.Error.Messages));
+            }
+            
+            var codeGen = _codeGen.Visit(tokens);
 
             var lambdaExpr = Expression.Lambda(codeGen.Expression);
-            
-            Console.WriteLine(lambdaExpr.Compile().DynamicInvoke());
+
+            return lambdaExpr.Compile().DynamicInvoke()?.ToString();
         }
     }
 }

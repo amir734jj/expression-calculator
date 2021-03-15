@@ -9,16 +9,19 @@ namespace App
         {
             var p = new Parser();
             
-            var str = @"a = 2;b = 3;c = a + b; 2 c ^ 3";
+            const string str = @"a = 2;
+b = 3;
+c = a + b;
+2 c ^ 3";
             
             foreach (var token in p.Parse(str))
             {
                 Console.WriteLine(token);
             }
 
-            var d = new Driver(str);
+            var driver = new Driver();
             
-            Console.WriteLine("Hello World!");
+            Console.WriteLine("=> " + driver.Run(str));
         }
     }
 }

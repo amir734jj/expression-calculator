@@ -31,6 +31,10 @@ namespace Logic
 
             var operatorP = new OPPBuilder<Unit, IToken, Unit>()
                 .WithOperators(ops => ops
+                    .AddInfix("<", 5, WS, (x, y) => new BooleanLessThan(x, y))
+                    .AddInfix("<", 5, WS, (x, y) => new BooleanLessThan(x, y))
+                    .AddInfix("<", 5, WS, (x, y) => new BooleanLessThan(x, y))
+                    .AddInfix("<", 5, WS, (x, y) => new BooleanLessThan(x, y))
                     .AddInfix("+", 10, WS, (x, y) => new AddToken(x, y))
                     .AddInfix("-", 10, WS, (x, y) => new DivideToken(x, y))
                     .AddInfix("*", 20, WS, (x, y) => new MultiplyToken(x, y))
