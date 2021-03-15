@@ -8,3 +8,6 @@ c = a + b;
 
 2 c ^ 3
 ```
+
+Dependency:
+- FParsec: parser combinator library
