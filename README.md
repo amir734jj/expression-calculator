@@ -1,5 +1,5 @@
 # expression-calculator
-Simple calculator
+Simple calculator with complete operator precedance + to LINQ expression converter
 
 ```
 a = 2;
