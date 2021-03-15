@@ -9,10 +9,7 @@ namespace App
         {
             var p = new Parser();
             
-            var str = @"
-a = 1 + 2 * c * d;
-b = c + a;
-";
+            var str = @"a = 2;b = 3;c = a + b; 2 c ^ 3";
             
             foreach (var token in p.Parse(str))
             {

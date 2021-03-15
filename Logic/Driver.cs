@@ -1,4 +1,5 @@
 using System;
+using System.Linq.Expressions;
 
 namespace Logic
 {
@@ -13,6 +14,12 @@ namespace Logic
             {
                 Console.WriteLine(errorMessage);
             }
+
+            var codeGen = new CodeGen().Visit(tokens);
+
+            var lambdaExpr = Expression.Lambda(codeGen.Expression);
+            
+            Console.WriteLine(lambdaExpr.Compile().DynamicInvoke());
         }
     }
 }

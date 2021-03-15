@@ -5,9 +5,9 @@ namespace Logic.Tokens
 {
     public class NumberToken : IToken
     {
-        public decimal Item1 { get; }
+        public double Item1 { get; }
 
-        public NumberToken(decimal item1)
+        public NumberToken(double item1)
         {
             Item1 = item1;
         }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using FParsec;
 using FParsec.CSharp;
@@ -20,7 +19,7 @@ namespace Logic
         {
             var variableP = Regex(@"\w+").Label("variable")
                 .Map(x => (IToken) new VariableToken(x));
-            var numberP = Float.Label("number").Map(x => (IToken) new NumberToken((decimal) x));
+            var numberP = Float.Label("number").Map(x => (IToken) new NumberToken(x));
             var atomicP = numberP.Or(variableP);
 
             FSharpFunc<CharStream<Unit>, Reply<IToken>> exprP = null;
@@ -50,7 +49,7 @@ namespace Logic
 
             exprP = assignmentP.Or(operatorP).Or(atomicP);
             
-            _parser = Many(exprP, sep: WS.And(CharP(';')).And(CharP(';')), canEndWithSep: true);
+            _parser = Many(exprP, sep: WS.And(CharP(';')).And(WS), canEndWithSep: true);
         }
 
         public List<IToken> Parse(string str)

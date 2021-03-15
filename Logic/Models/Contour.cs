@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using Logic.Interfaces;
 
 namespace Logic.Models
@@ -70,6 +71,17 @@ namespace Logic.Models
             {
                 _parent = _parent?.Combine(other._parent)
             };
+        }
+        
+        [IndexerName("Item")]
+        public T this[string key]
+        {
+            get
+            {
+                Lookup(key, out var result);
+
+                return result;
+            }
         }
     }
 }
